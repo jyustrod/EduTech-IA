@@ -1,0 +1,41 @@
+@startuml
+
+class Campus {
+  private List<Usuario> usuarios;
+  private List<Curso> cursos;
+
+  public void anadirCurso (Curso curso);
+  public void borrarCurso (Curso curso);
+  public String mostrarCursos ();
+
+  public void anadirUsuario (Usuario usuario);
+  public void borrarUsuario (Usuario usuario);
+  public String mostrarUsuarios ();
+}
+
+class Usuario {
+  private String user;
+  private String password;
+  private List<Curso> cursosSuscritos;
+  private List<TiposCurso> intereses;
+
+  public void anadirCursoSuscrito (Curso curso);
+  public void borrarCursoSuscrito (Curso curso);
+  public void mostrarCursosSuscritos (Curso curso);
+}
+
+abstract class Curso {
+  private TiposCurso tipo;
+  private List<Curso> usuariosSuscritos;
+}
+
+enum TiposCurso {
+  INFORMATICA, MATEMATICAS, CIENCIAS NATURALES, HUMANIDADES, ARTES, IDIOMAS
+}
+
+Campus "1" -- "*" Usuario : "contiene"
+Campus "1" -- "*" Curso : "contiene"
+Usuario "*" -- "*" Curso : "se inscribe en"
+Curso "1" -- "1" TiposCurso : "pertenece a"
+
+@enduml
