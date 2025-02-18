@@ -1,5 +1,5 @@
 @startuml
-class Campus {
+class Campus implements GestorCursos {
   List<Usuario> usuarios
   List<Curso> cursos
 
@@ -13,9 +13,9 @@ class Campus {
 }
 
 interface GestorCursos {
-  void anadirCursoSuscrito(Curso curso)
-  void borrarCursoSuscrito(Curso curso)
-  String mostrarCursosSuscritos()
+  void anadirCurso(Curso curso)
+  void borrarCurso(Curso curso)
+  String mostrarCursos()
 }
 
 class Usuario implements GestorCursos {
@@ -24,9 +24,9 @@ class Usuario implements GestorCursos {
   List<Curso> cursosSuscritos
   List<TiposCurso> intereses
 
-  void anadirCursoSuscrito(Curso curso)
-  void borrarCursoSuscrito(Curso curso)
-  String mostrarCursosSuscritos()
+  void anadirCurso(Curso curso)
+  void borrarCurso(Curso curso)
+  String mostrarCursos()
 }
 
 abstract class Curso {
@@ -46,9 +46,9 @@ enum TiposCurso {
   INFORMATICA, MATEMATICAS, CIENCIAS_NATURALES, HUMANIDADES, ARTES, IDIOMAS
 }
 
-Campus "1" -- "*" Usuario : "contiene"
-Campus "1" -- "*" Curso : "ofrece"
-Usuario "*" -- "*" Curso : "se inscribe en"
-Curso "*" -- "1" TiposCurso : "pertenece a"
-IA "1" -- "*" Usuario : "recomienda cursos a"
+Campus "1" -- "*" Usuario
+Campus "1" -- "*" Curso
+Usuario "*" -- "*" Curso
+Curso "*" -- "1" TiposCurso
+IA "1" -- "*" Usuario
 @enduml
