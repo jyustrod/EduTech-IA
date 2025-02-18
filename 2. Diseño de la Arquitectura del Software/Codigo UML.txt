@@ -1,0 +1,54 @@
+@startuml
+class Campus {
+  List<Usuario> usuarios
+  List<Curso> cursos
+
+  void anadirCurso(Curso curso)
+  void borrarCurso(Curso curso)
+  String mostrarCursos()
+
+  void anadirUsuario(Usuario usuario)
+  void borrarUsuario(Usuario usuario)
+  String mostrarUsuarios()
+}
+
+interface GestorCursos {
+  void anadirCursoSuscrito(Curso curso)
+  void borrarCursoSuscrito(Curso curso)
+  String mostrarCursosSuscritos()
+}
+
+class Usuario implements GestorCursos {
+  String user
+  String password
+  List<Curso> cursosSuscritos
+  List<TiposCurso> intereses
+
+  void anadirCursoSuscrito(Curso curso)
+  void borrarCursoSuscrito(Curso curso)
+  String mostrarCursosSuscritos()
+}
+
+abstract class Curso {
+  String nombre
+  TiposCurso tipo
+  List<Usuario> usuariosSuscritos
+
+  String getNombre()
+  TiposCurso getTipo()
+}
+
+class IA {
+  Curso recomendarCurso(Usuario usuario)
+}
+
+enum TiposCurso {
+  INFORMATICA, MATEMATICAS, CIENCIAS_NATURALES, HUMANIDADES, ARTES, IDIOMAS
+}
+
+Campus "1" -- "*" Usuario : "contiene"
+Campus "1" -- "*" Curso : "ofrece"
+Usuario "*" -- "*" Curso : "se inscribe en"
+Curso "*" -- "1" TiposCurso : "pertenece a"
+IA "1" -- "*" Usuario : "recomienda cursos a"
+@enduml
